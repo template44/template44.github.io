@@ -9,31 +9,39 @@
 </head>
 <body>
     <form action="https://fix-api.sbis.ru/webhook/hdl/int_settings_minimal_triggers/new_ops/99f47cfe-eb65-4d1a-b08c-35c82a8729e9/?Параметр=Колючка (4352)" target="_blank">
-    <button>Ссылка для fix</button>
+    <button id="fix">Ссылка для fix</button>
 </form>
     <form action="https://test-api.sbis.ru/webhook/hdl/int_settings_minimal_triggers/new_ops/e720ae13-f761-4538-ab7d-97f7e38c5021/?Параметр=Колючка (4352)" target="_blank">
-    <button>Ссылка для test</button>
+    <button id="test">Ссылка для test</button>
 </form>
 </body>
     <script>
-            var myHeaders = new Headers();
-            myHeaders.append("Testing", "'test'");
-            myHeaders.append("HEADER", "Teest-accept");
-            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-            
-            var urlencoded = new URLSearchParams();
-            urlencoded.append("Body", "new Date()");
-            
-            var requestOptions = {
-              method: 'POST',
-              headers: myHeaders,
-              body: urlencoded,
-              redirect: 'follow'
-            };
-            
-            fetch("https://test-api.sbis.ru/webhook/hdl/int_settings_minimal_triggers/new_ops/e720ae13-f761-4538-ab7d-97f7e38c5021/?Параметр=123456789", requestOptions)
-              .then(response => response.text())
-              .then(result => console.log(result))
-              .catch(error => console.log('error', error));
+            const fix = document.querySelector('#fix');
+            const test = document.querySelector('#test');
+
+            sendPost = (site) => {
+                const myHeaders = new Headers();
+                myHeaders.append("Testing", "'test'");
+                myHeaders.append("HEADER", "Teest-accept");
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+                
+                const urlencoded = new URLSearchParams();
+                urlencoded.append("Body", "new Date()");
+                
+                const requestOptions = {
+                  method: 'POST',
+                  headers: myHeaders,
+                  body: urlencoded,
+                  redirect: 'follow'
+                };
+                
+                fetch(`https://${site}-api.sbis.ru/webhook/hdl/int_settings_minimal_triggers/new_ops/e720ae13-f761-4538-ab7d-97f7e38c5021/?Параметр=123456789`, requestOptions)
+                  .then(response => response.text())
+                  .then(result => console.log(result))
+                  .catch(error => console.log('error', error));
+            }
+
+            fix.addEventListener('click', () => sendPost('fix'));
+            test.addEventListener('click', () => sendPost('test'));
     </script> 
 </html>
