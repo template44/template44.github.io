@@ -22,6 +22,7 @@
                 myHeaders.append("Testing", "'test'");
                 myHeaders.append("HEADER", "Teest-accept");
                 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+                myHeaders.append("Access-Control-Allow-Origin", "*");
                 
                 const urlencoded = new URLSearchParams();
                 urlencoded.append("Body", "new Date()");
